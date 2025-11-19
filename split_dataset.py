@@ -2,9 +2,7 @@ import os
 import shutil
 import random
 
-# =================================================================
 # --- CONFIGURACIÓN DE RUTAS Y PARÁMETROS ---
-# =================================================================
 BASE_PATH = "emotion_dataset" 
 
 # Ratios de división recomendados para Deep Learning
@@ -16,15 +14,13 @@ CLASSES = ["angry", "happy", "neutral", "sad", "surprise"]
 SETS = ["train", "validation", "test"]
 
 
-# =================================================================
 # --- FUNCIÓN DE DIVISIÓN PRINCIPAL ---
-# =================================================================
 
 def split_dataset(base_path, classes, train_ratio, val_ratio, test_ratio):
     """Divide las imágenes de cada clase en los directorios de Train, Val y Test."""
     print("--- INICIANDO LA DIVISIÓN 70/15/15 ---")
     
-    # Rutas de los sets finales
+
     set_paths = {
         "train": os.path.join(base_path, "train"),
         "validation": os.path.join(base_path, "validation"),
@@ -34,7 +30,7 @@ def split_dataset(base_path, classes, train_ratio, val_ratio, test_ratio):
     # 1. Limpiar y crear la nueva estructura de sets
     for path in set_paths.values():
         if os.path.exists(path):
-            shutil.rmtree(path) # Borra la carpeta si existe
+            shutil.rmtree(path)
         os.makedirs(path)
         for cls in classes:
             os.makedirs(os.path.join(path, cls))
@@ -51,23 +47,17 @@ def split_dataset(base_path, classes, train_ratio, val_ratio, test_ratio):
             print(f"ERROR: No se encontró la carpeta original de la clase: {cls}. Verifique la ruta.")
             continue
         
-        # Obtener lista de todos los archivos
         all_files = [f for f in os.listdir(original_class_path) if os.path.isfile(os.path.join(original_class_path, f))]
         random.shuffle(all_files) # Mezclar para asegurar una división aleatoria
         
         total_files = len(all_files)
         
-        # Calcular los puntos de corte
         train_end = int(total_files * train_ratio)
         val_end = train_end + int(total_files * val_ratio)
-        
-        # Dividir la lista
+
         train_files = all_files[:train_end]
         val_files = all_files[train_end:val_end]
         test_files = all_files[val_end:]
-        
-        # Nota: Debido al redondeo, test_files puede ser ligeramente diferente a test_ratio,
-        # pero esto asegura que cada archivo vaya a un set.
 
         # 3. Mover a las carpetas de destino
         file_distribution = {
@@ -90,9 +80,7 @@ def split_dataset(base_path, classes, train_ratio, val_ratio, test_ratio):
     print("--------------------------------------------------")
 
 
-# =================================================================
 # --- FUNCIÓN DE VERIFICACIÓN ---
-# =================================================================
 
 def count_images_in_sets(base_path, sets, classes):
     """Cuenta y muestra el número de imágenes por clase en cada set de datos."""
@@ -122,9 +110,7 @@ def count_images_in_sets(base_path, sets, classes):
     print(f"\n--- Conteo Finalizado. Gran Total de imágenes: {grand_total} ---")
 
 
-# =================================================================
 # --- EJECUCIÓN DEL PROGRAMA ---
-# =================================================================
 
 if __name__ == "__main__":
     
