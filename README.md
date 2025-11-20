@@ -65,17 +65,17 @@ El modelo final fue guardado como `emotion_model.h5`.
 
 ### Gráficos de Evolución
 
-![Accuracy del entrenamiento](outputs/output1.png)
+![Accuracy del entrenamiento](resources/output1.png)
 
 El hecho de que la pérdida de validación no se dispare y se mantenga muy cerca de la pérdida de entrenamiento indica que el modelo no parece estar sufriendo de un sobreajuste severo (overfitting).
 
-![Loss del entrenamiento](outputs/output.png)
+![Loss del entrenamiento](resources/output.png)
 
 El modelo alcanza una precisión final de casi el 70%. La diferencia entre la precisión de entrenamiento y validación es pequeña, lo que refuerza la idea de que el modelo generaliza bien (no hay overfitting significativo). Sin embargo, la volatilidad en la validación podría sugerir la necesidad de ajustar la tasa de aprendizaje o utilizar técnicas de regularización adicionales.
 
 ### Matriz de Confusión
 
-![Matriz de confusión](outputs/output2.png)
+![Matriz de confusión](resources/output2.png)
 
 El modelo demuestra una habilidad robusta para clasificar Felicidad y Sorpresa. No obstante, el rendimiento global del modelo se ve significativamente afectado por la dificultad para distinguir entre Neutral y Tristeza, que son las clases peor clasificadas. La principal fuente de error reside en la confusión mutua entre Neutral y Tristeza, sumado a que la Tristeza se confunde frecuentemente con el Enfado. Esto indica que el modelo necesita una mejor diferenciación de las características sutiles que separan estos estados emocionales.
 
@@ -90,10 +90,17 @@ El código incluye una funcionalidad de visión por computadora en tiempo real a
 * Muestra la emoción y su confianza en el recuadro de la cara.
 * Proyecta el *feed* de la cámara junto a un **emoticono** predefinido (cargado de la carpeta `filters`) que corresponde a la emoción detectada.
 
+<img src="resources/vid1.gif" width="350" alt="GIF emociones a emojis">
+
+
+
 ##  Detección de Cara y Aplicación de un Filtro (última celda en el notebook)
 
 * Detecta rostros.
 * Aplica un conjunto fijo de filtros decorativos (`hat`, `glasses`, `scarf`) sobre el rostro detectado, demostrando técnicas de superposición con canal alfa y transformación de imagen (`overlay_alpha`, `transform_filter`). Las posiuciones para el gorro, las gafas y la bufanda son calculadas de forma orientativa y geométrica.
+
+
+<img src="resources/vid2.gif" width="350" alt="GIF probador">
 
 
 ### Dependencias y Ejecución
